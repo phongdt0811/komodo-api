@@ -114,12 +114,10 @@ export interface IAgreementRepository {
 
     /**
      * 
-     * @param agreementtxid Transaction id of the agreement to be updated.
-     * @param name New name of the proposed agreement. (max 64 characters)
-     * @param datahash Field for arbitrary SHA256 hash, can be used to store a fingerprint of a digital document or to reference a transaction in the blockchain.
-     * @param payment If set, recipient will have to send this amount of funds to the sender in order to accept this proposal successfully. This parameter could also be used for invoice functionality.
-     * @param prevproposaltxid Transaction id of a previous open proposal to update an agreement by the same sender pubkey. If set, this proposal will supersede the one specified here.
-     * @param arbitratorfee If set, this will be the new fee that will be required to allocate to the arbitrator in order to create a dispute for the proposed agreement. If no arbitrator is set, always resets to 0, otherwise is set to the current arbitrator fee unless another amount is defined here (must be at least 10000 satoshis).
+     * @param agreementtxid  Transaction id of the agreement to be updated.
+     * @param agreementhash Field for arbitrary SHA256 hash, can be used to store a fingerprint of a digital document or to reference a transaction in the blockchain.
+     * @param agreementname [OPTIONAL] New name for the specified agreement. (max 64 characters). If left unspecified, the current agreement name will be used for this field.
+     * @param payment [OPTIONAL] If set, recipient will have to send this amount of funds to the sender in order to accept this proposal successfully.
      */
-    agreementUpdate(agreementtxid: string, name: string, datahash: string, payment?: number, prevproposaltxid?: string, arbitratorfee?: number): Promise<RPCResponse<Transaction>>;
+    agreementUpdate(agreementtxid: string, agreementhash: string, agreementname?: string, payment?: number): Promise<RPCResponse<Transaction>>;
 }
