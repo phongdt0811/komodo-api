@@ -93,11 +93,11 @@ export interface IAgreementRepository {
     agreementDispute(agreementtxid: string, datahash: string): Promise<RPCResponse<Transaction>>;
 
     /**
-     * 
-     * @param agreementtxid Transaction id of the agreement to have its dispute resolved.
-     * @param rewardedpubkey Pubkey to send the deposit to (must be a member of the agreementtxid)
+     * @param disputetxid Transaction id of the dispute to resolve. 
+     * @param depositcut The amount of coins to send to the claimant, sourced from the deposit of the agreement referenced by the specified dispute. If the amount is not negative (0 or above), the remainder of the deposit will be sent to the defendant. If the amount is negative (less than 0), and the bFinalDispute variable in the referenced dispute transaction is set to "false", the dispute will be resolved without withdrawing the deposit and closing the agreement.
+     * @param resolutioninfo [OPTIONAL] Free-form text field decribing the resolutions. (max 256 characters)
      */
-    agreementResolve(agreementtxid: string, rewardedpubkey: string): Promise<RPCResponse<Transaction>>;
+    agreementResolve(disputetxid: string, depositcut: number, resolutioninfo?: string): Promise<RPCResponse<Transaction>>;
 
     /**
      * 

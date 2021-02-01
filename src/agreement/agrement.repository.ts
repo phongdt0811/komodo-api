@@ -56,8 +56,8 @@ export class AgreementRepository implements IAgreementRepository {
         const result: RPCResponse<Transaction> = await KomodoRPC.client.rpcRequest("agreementdispute", agreementtxid, datahash);
         return result;
     }
-    async agreementResolve(agreementtxid: string, rewardedpubkey: string): Promise<RPCResponse<Transaction>> {
-        const result: RPCResponse<Transaction> = await KomodoRPC.client.rpcRequest("agreementresolve", agreementtxid, rewardedpubkey);
+    async agreementResolve(disputetxid: string, depositcut: number, resolutioninfo?: string): Promise<RPCResponse<Transaction>> {
+        const result: RPCResponse<Transaction> = await KomodoRPC.client.rpcRequest("agreementresolve", disputetxid, depositcut, resolutioninfo);
         return result;
     }
     async agreementStopProposal(proposaltxid: string): Promise<RPCResponse<Transaction>> {

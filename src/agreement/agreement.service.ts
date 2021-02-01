@@ -172,8 +172,8 @@ export class AgreementService implements IAgreementService {
             }
         }
     }
-    async agreementResolve(agreementtxid: string, rewardedpubkey: string): Promise<Transaction> {
-        const res = await KomodoRepository.agreementRepository.agreementResolve(agreementtxid, rewardedpubkey);
+    async agreementResolve(disputetxid: string, depositcut: number, resolutioninfo?: string): Promise<Transaction> {
+        const res = await KomodoRepository.agreementRepository.agreementResolve(disputetxid, depositcut, resolutioninfo);
         if (res.error) {
             throw new Error(res.error.message)
         } else {

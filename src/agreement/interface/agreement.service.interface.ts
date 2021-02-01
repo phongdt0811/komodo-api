@@ -100,12 +100,15 @@ export interface IAgreementService {
 
     /**
      * The method creates an agreement dispute resolution transaction and returns the raw hex.
-     * Only available to the arbitrator of the agreementtxid.
-     * @param agreementtxid Transaction id of the agreement to have its dispute resolved.
-     * @param rewardedpubkey Pubkey to send the deposit to (must be a member of the agreementtxid)
+     * The transaction sends the entire deposit to the chosen pubkey and retrieves the arbitrator fee from the dispute transaction, sending it to the arbitrator's wallet. This transaction will permanently close the agreement.
+     * This transaction will either split the agreement deposit according to the specified depositcut amount (if it is 0 or above), or unsuspend the agreement without drawing the deposit (if it is below 0, e.g. -1). Note that if the agreement deposit is withdrawn as part of the dispute resolution, the agreement will be permanently closed.
+     * Only available to the arbitrator of the agreementtxid. which is referenced by the specified disputetxid.
+     * @param disputetxid Transaction id of the dispute to resolve. 
+     * @param depositcut The amount of coins to send to the claimant, sourced from the deposit of the agreement referenced by the specified dispute. If the amount is not negative (0 or above), the remainder of the deposit will be sent to the defendant. If the amount is negative (less than 0), and the bFinalDispute variable in the referenced dispute transaction is set to "false", the dispute will be resolved without withdrawing the deposit and closing the agreement.
+     * @param resolutioninfo [OPTIONAL] Free-form text field decribing the resolutions. (max 256 characters)
      * @returns The method returns a hex value which must then be broadcast using the sendrawtransaction method. The sendrawtransaction method will then return a txid identifying the agreement dispute resolution transaction.
      */
-    agreementResolve(agreementtxid: string, rewardedpubkey: string): Promise<Transaction>;
+    agreementResolve(disputetxid: string, depositcut: number, resolutioninfo?: string): Promise<Transaction>;
 
     /**
      * The method creates a proposal closure transaction and returns the raw hex. The creator of this transaction must be either the creator or recipient of the proposal being closed for this RPC to be executed successfully.
