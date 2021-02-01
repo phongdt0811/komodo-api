@@ -115,8 +115,8 @@ export class AgreementService implements IAgreementService {
             }
         }
     }
-    async agreementClose(agreementtxid: string, name: string, datahash: string, depositcut?: number, payment?: number, prevproposaltxid?: string): Promise<Transaction> {
-        const res = await KomodoRepository.agreementRepository.agreementClose(agreementtxid, name, datahash, depositcut, payment, prevproposaltxid);
+    async agreementClose(agreementtxid: string, agreementhash: string, depositcut?: number, agreementname?: string, payment?: number): Promise<Transaction> {
+        const res = await KomodoRepository.agreementRepository.agreementClose(agreementtxid, agreementhash, depositcut, agreementname, payment);
         if (res.error) {
             throw new Error(res.error.message)
         } else {

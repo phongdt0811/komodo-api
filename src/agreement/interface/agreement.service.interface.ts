@@ -67,14 +67,13 @@ export interface IAgreementService {
     /**
      * The method creates an agreement closure proposal transaction and returns the raw hex. The agreement will be closed once this proposal is accepted by the owner of the designated recipient pubkey using the agreementaccept method.
      * @param agreementtxid Transaction id of the agreement to be closed.
-     * @param name Name or info describing the reason for closure. (max 64 characters)
-     * @param datahash Field for arbitrary SHA256 hash, can be used to store a fingerprint of a digital document or to reference a transaction in the blockchain.
-     * @param depositcut The amount taken from the deposit that will be sent to the sender if the agreement is closed. The rest of the deposit will be given to the recipient.
-     * @param payment If set, recipient will have to send this amount of funds to the sender in order to accept this proposal successfully. This parameter could also be used for invoice functionality.
-     * @param prevproposaltxid Transaction id of a previous open proposal to update an agreement by the same sender pubkey. If set, this proposal will supersede the one specified here.
+     * @param agreementhash Field for arbitrary SHA256 hash, can be used to store a fingering of a digital document or to reference a transaction in the blockchain.
+     * @param depositcut The amount taken from the deposit (in coins) that will be sent to the resulting proposal's sender if the agreement is closed. The res of the deposit will be given the recipient.
+     * @param agreementname [OPTIONAL] New name for specified agreement. (max 64 characters) If left imspecidied, the current agreement name will be used for this field.
+     * @param payment [OPTIONAL] If set, recipient will have to send this amount of funds to the sender in order to accept this proposal successfully. This parameter could also be used for invoice functionality.
      * @returns The method returns a hex value which must then be broadcast using the sendrawtransaction method. The sendrawtransaction method will then return a txid. This txid is the proposaltxid that serves to identify the agreement closure proposal.
      */
-    agreementClose(agreementtxid: string, name: string, datahash: string, depositcut?: number, payment?: number, prevproposaltxid?: string): Promise<Transaction>;
+    agreementClose(agreementtxid: string, agreementhash: string, depositcut?: number, agreementname?: string, payment?: number): Promise<Transaction>;
 
     /**
      * The method creates a new agreement proposal transaction and returns the raw hex. The agreement will be fully set up once this proposal is accepted by the owner of the designated recipient pubkey using the agreementaccept method.

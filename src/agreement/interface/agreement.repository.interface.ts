@@ -64,13 +64,12 @@ export interface IAgreementRepository {
     /**
      * 
      * @param agreementtxid Transaction id of the agreement to be closed.
-     * @param name Name or info describing the reason for closure. (max 64 characters)
-     * @param datahash Field for arbitrary SHA256 hash, can be used to store a fingerprint of a digital document or to reference a transaction in the blockchain.
-     * @param depositcut The amount taken from the deposit that will be sent to the sender if the agreement is closed. The rest of the deposit will be given to the recipient.
-     * @param payment If set, recipient will have to send this amount of funds to the sender in order to accept this proposal successfully. This parameter could also be used for invoice functionality.
-     * @param prevproposaltxid Transaction id of a previous open proposal to update an agreement by the same sender pubkey. If set, this proposal will supersede the one specified here.
+     * @param agreementhash Field for arbitrary SHA256 hash, can be used to store a fingering of a digital document or to reference a transaction in the blockchain.
+     * @param depositcut The amount taken from the deposit (in coins) that will be sent to the resulting proposal's sender if the agreement is closed. The res of the deposit will be given the recipient.
+     * @param agreementname [OPTIONAL] New name for specified agreement. (max 64 characters) If left imspecidied, the current agreement name will be used for this field.
+     * @param payment [OPTIONAL] If set, recipient will have to send this amount of funds to the sender in order to accept this proposal successfully. This parameter could also be used for invoice functionality.
      */
-    agreementClose(agreementtxid: string, name: string, datahash: string, depositcut?: number, payment?: number, prevproposaltxid?: string): Promise<RPCResponse<Transaction>>;
+    agreementClose(agreementtxid: string, agreementhash: string, depositcut?: number, agreementname?: string, payment?: number): Promise<RPCResponse<Transaction>>;
 
     /**
      * 
