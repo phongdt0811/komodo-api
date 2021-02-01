@@ -74,17 +74,16 @@ export interface IAgreementRepository {
 
     /**
      * 
-     * @param name Name of the proposed agreement. (max 64 characters)
-     * @param datahash Field for arbitrary SHA256 hash, can be used to store a fingerprint of a digital document or to reference a transaction in the blockchain.
-     * @param client Pubkey of proposal's intended recipient. If set to "" or 0, a proposal draft will be created.
-     * @param arbitrator Pubkey of proposed arbitrator for the agreement. If set to "" or 0, the agreement will have no arbitrator.
-     * @param arbitratorfee Fee that will be required to allocate to the arbitrator in order to create a dispute for the proposed agreement. If no arbitrator is set, always resets to 0, otherwise must be set to at least 10000 satoshis.
-     * @param payment If set, recipient will have to send this amount of funds (in satoshis) to the sender in order to accept this proposal successfully.
-     * @param deposit Amount that the intended recipient will have to allocate to the agreement global address for deposit in order to accept this proposal successfully. If arbitrator is set, this must be to at least 10000 satoshis.
-     * @param prevproposaltxid Transaction id of a previous open proposal (draft) to create an agreement by the same sender pubkey. If set, this proposal will supersede the one specified here.
-     * @param refagreementtxid Transaction id of another agreement in the blockchain that shares at least one member pubkey with the proposed agreement. If set, the proposed agreement will be a subcontract under the agreement specified here.
+     * @destpub Pubkey of proposal's intended recipient.
+     * @param agreementname Name of the proposed agreement. (max 64 characters)
+     * @param agreementhash Field for arbitrary SHA256 hash, can be used to store a fingerprint of a digital document or to reference a transaction in the blockchain.
+     * @param deposit Amount that the intended recipient will have to allocate to the agreement global address for deposit in order to accept this proposal successfully. This value must be to at least 0.0001 coins.
+     * @param arbitratorpub [OPTIONAL] Pubkey of proposed arbitrator for the agreement. If set to "" or 0, the agreement will have no arbitrator.
+     * @param disputefee [OPTIONAL] Fee that will be required to allocate to the arbitrator in order to create a dispute for the proposed agreement. If no arbitrator is set, always resets to 0, otherwise must be set to at least 0.0001 coins.
+     * @param refagreementtxid [OPTIONAL] Transaction id of another agreement in the blockchain that shares at least one member pubkey with the proposed agreement. If set, the proposed agreement will reference the agreement specified here.
+     * @param payment [OPTIONAL] If set, recipient will have to send this amount of funds (in satoshis) to the sender in order to accept this proposal successfully.
      */
-    agreementCreate(name: string, datahash: string, client: string, arbitrator: string, arbitratorfee?: string, payment?: string, deposit?: string, prevproposaltxid?: string, refagreementtxid?: string): Promise<RPCResponse<Transaction>>;
+    agreementCreate(destpub: string, agreementname: string, agreementhash: string, deposit: string, arbitratorpub?: string, disputefee?: string, refagreementtxid?: string, payment?: string): Promise<RPCResponse<Transaction>>;
 
     /**
      * 

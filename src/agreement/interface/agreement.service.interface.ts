@@ -78,18 +78,17 @@ export interface IAgreementService {
 
     /**
      * The method creates a new agreement proposal transaction and returns the raw hex. The agreement will be fully set up once this proposal is accepted by the owner of the designated recipient pubkey using the agreementaccept method.
-     * @param name Name of the proposed agreement. (max 64 characters)
-     * @param datahash Field for arbitrary SHA256 hash, can be used to store a fingerprint of a digital document or to reference a transaction in the blockchain.
-     * @param client Pubkey of proposal's intended recipient. If set to "" or 0, a proposal draft will be created.
-     * @param arbitrator Pubkey of proposed arbitrator for the agreement. If set to "" or 0, the agreement will have no arbitrator.
-     * @param arbitratorfee Fee that will be required to allocate to the arbitrator in order to create a dispute for the proposed agreement. If no arbitrator is set, always resets to 0, otherwise must be set to at least 10000 satoshis.
-     * @param payment If set, recipient will have to send this amount of funds (in satoshis) to the sender in order to accept this proposal successfully.
-     * @param deposit Amount that the intended recipient will have to allocate to the agreement global address for deposit in order to accept this proposal successfully. If arbitrator is set, this must be to at least 10000 satoshis.
-     * @param prevproposaltxid Transaction id of a previous open proposal (draft) to create an agreement by the same sender pubkey. If set, this proposal will supersede the one specified here.
-     * @param refagreementtxid Transaction id of another agreement in the blockchain that shares at least one member pubkey with the proposed agreement. If set, the proposed agreement will be a subcontract under the agreement specified here.
+     * @destpub Pubkey of proposal's intended recipient.
+     * @param agreementname Name of the proposed agreement. (max 64 characters)
+     * @param agreementhash Field for arbitrary SHA256 hash, can be used to store a fingerprint of a digital document or to reference a transaction in the blockchain.
+     * @param deposit Amount that the intended recipient will have to allocate to the agreement global address for deposit in order to accept this proposal successfully. This value must be to at least 0.0001 coins.
+     * @param arbitratorpub [OPTIONAL] Pubkey of proposed arbitrator for the agreement. If set to "" or 0, the agreement will have no arbitrator.
+     * @param disputefee [OPTIONAL] Fee that will be required to allocate to the arbitrator in order to create a dispute for the proposed agreement. If no arbitrator is set, always resets to 0, otherwise must be set to at least 0.0001 coins.
+     * @param refagreementtxid [OPTIONAL] Transaction id of another agreement in the blockchain that shares at least one member pubkey with the proposed agreement. If set, the proposed agreement will reference the agreement specified here.
+     * @param payment [OPTIONAL] If set, recipient will have to send this amount of funds (in satoshis) to the sender in order to accept this proposal successfully.
      * @returns The method returns a hex value which must then be broadcast using the sendrawtransaction method. The sendrawtransaction method will then return a txid. This txid is the proposaltxid that serves to identify the proposal.
      */
-    agreementCreate(name: string, datahash: string, client: string, arbitrator: string, arbitratorfee?: number, payment?: number, deposit?: number, prevproposaltxid?: string, refagreementtxid?: string): Promise<Transaction>;
+    agreementCreate(destpub: string, agreementname: string, agreementhash: string, deposit: number, arbitratorpub?: string | number, disputefee?: number, refagreementtxid?: string, payment?: number): Promise<Transaction>;
 
     /**
      * The method creates an agreement dispute transaction and returns the raw hex. This transaction will cost the sender a fee equal to the latest arbitrator fee defined for the agreement. Only allowed for members of the agreement (sender pubkey must be either seller or client pubkey).

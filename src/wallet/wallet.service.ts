@@ -1,4 +1,3 @@
-import { address } from "../../komodo-lib";
 import { KomodoRepository } from "../komodo/komodo.repository";
 import { IWalletService } from "./interface/wallet.service.interface";
 

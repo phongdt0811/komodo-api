@@ -127,20 +127,29 @@ export class AgreementService implements IAgreementService {
             }
         }
     }
-    async agreementCreate(name: string, datahash: string, client: string, arbitrator: string, arbitratorfee?: number, payment?: number, deposit?: number, prevproposaltxid?: string, refagreementtxid?: string): Promise<Transaction> {
-        let paymnetString = "0";
-        let depositString = "0";
-        let arbitratorfeeString = "0"
+    async agreementCreate(destpub: string, agreementname: string, agreementhash: string, deposit: number, arbitratorpub?: string | number, disputefee?: number, refagreementtxid?: string, payment?: number): Promise<Transaction> {
+        let defaultFee = "0.0001";
+        let paymentString = "0";
+        let depositString = defaultFee; // at least fee 0.0001
+        let disputefeeString = "0"
+        let arbitratorpubString: string | undefined = arbitratorpub?.toString();
+
         if (payment) {
-            paymnetString = payment.toString();
+            paymentString = payment.toString();
         }
         if (deposit) {
             depositString = deposit.toString();
         }
-        if (arbitratorfee) {
-            arbitratorfeeString = arbitratorfee.toString();
+        if (disputefee) {
+            disputefeeString = disputefee.toString();
         }
-        const res = await KomodoRepository.agreementRepository.agreementCreate(name, datahash, client, arbitrator, arbitratorfeeString, paymnetString, depositString, prevproposaltxid, refagreementtxid);
+        if(arbitratorpub !== '' && arbitratorpub !== 0) {
+            disputefeeString = defaultFee;
+        } else {
+            arbitratorpubString = '';
+        }
+
+        const res = await KomodoRepository.agreementRepository.agreementCreate(destpub, agreementname, agreementhash, depositString, arbitratorpubString, disputefeeString, refagreementtxid, paymentString);
         if (res.error) {
             throw new Error(res.error.message)
         } else {
