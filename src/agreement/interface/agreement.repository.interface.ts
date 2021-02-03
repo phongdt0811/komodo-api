@@ -22,9 +22,15 @@ export interface IAgreementRepository {
     agreementInventory(pubkey?: string): Promise<RPCResponse<Inventory>>;
 
     /**
-     * 
+     *
+     * @param filtertype [OPTIONAL] Filter keyword for returning specific types of transaction IDs. The list of valid keywords are as follows:
+     * - `all` - return every type of transaction, without filtering
+     * - `proposals` - only return proposal IDs
+     * - `agreements` - only return agreement IDs
+     * Default is `all`.
+     * @param filtertxid [OPTIONAL] If specificd, proposals that do not reference or are related to this agreement ID will be discared from the returned list.
      */
-    agreementList(): Promise<RPCResponse<string[]>>;
+    agreementList(filtertype?: string, filtertxid?: string): Promise<RPCResponse<string[]>>;
 
     /**
      * 

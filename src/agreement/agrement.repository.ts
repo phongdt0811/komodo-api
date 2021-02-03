@@ -20,8 +20,8 @@ export class AgreementRepository implements IAgreementRepository {
         const result: RPCResponse<Inventory> = await KomodoRPC.client.rpcRequest("agreementinventory", pubkey);
         return result;
     }
-    async agreementList(): Promise<RPCResponse<string[]>> {
-        const result: RPCResponse<string[]> = await KomodoRPC.client.rpcRequest("agreementlist");
+    async agreementList(filtertype?: string, filtertxid?: string): Promise<RPCResponse<string[]>> {
+        const result: RPCResponse<string[]> = await KomodoRPC.client.rpcRequest("agreementlist", filtertype, filtertxid);
         return result;
     }
     async agreementProposals(agreementtxid?: string, pubkey?: string): Promise<RPCResponse<Proposals>> {

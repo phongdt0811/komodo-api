@@ -24,9 +24,15 @@ export interface IAgreementService {
     agreementInventory(pubkey?: string): Promise<Inventory>;
     
     /**
-     * The method returns an array of every active proposal and agreement transaction ID in the blockchain.
-     */
-    agreementList(): Promise<string[]>;
+     * The method returns an array of every active proposal and agreement transaction ID in the blockchain related to the pubkey used to launch the daemon. The array can be filtered by using additional parameters shown below.
+     * @param filtertype [OPTIONAL] Filter keyword for returning specific types of transaction IDs. The list of valid keywords are as follows:
+     * - `all` - return every type of transaction, without filtering
+     * - `proposals` - only return proposal IDs
+     * - `agreements` - only return agreement IDs
+     * Default is `all`.
+     * @param filtertxid [OPTIONAL] If specificd, proposals that do not reference or are related to this agreement ID will be discared from the returned list.
+     */ 
+    agreementList(filtertype?: string, filtertxid?: string): Promise<string[]>;
 
     /**
      * The method returns three arrays (one for sender, receiver and arbitrator) of agreement proposal transaction IDs that the specified pubkey is referenced in

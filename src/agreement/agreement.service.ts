@@ -43,8 +43,8 @@ export class AgreementService implements IAgreementService {
             }
         }
     }
-    async agreementList(): Promise<string[]> {
-        const res = await KomodoRepository.agreementRepository.agreementList();
+    async agreementList(filtertype?: string, filtertxid?: string): Promise<string[]> {
+        const res = await KomodoRepository.agreementRepository.agreementList(filtertype, filtertxid);
         if (res.error) {
             throw new Error(res.error.message)
         } else {
