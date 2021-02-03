@@ -92,10 +92,11 @@ export interface IAgreementService {
     /**
      * The method creates an agreement dispute transaction and returns the raw hex. This transaction will cost the sender a fee equal to the latest arbitrator fee defined for the agreement. Only allowed for members of the agreement (sender pubkey must be either seller or client pubkey).
      * @param agreementtxid Transaction id of the agreement to be disputed.
-     * @param datahash Field for arbitrary SHA256 hash, can be used to store a fingerprint of a digital document or to reference a transaction in the blockchain.
+     * @param disputeinfo [OPTIONAL] Free-form text field describing the dispute. (max 256 characters)
+     * @param bFinalDispute	[OPTIONAL] Can be set to "true" or "false". If set to "true", the arbitrator will be required to unlock the deposit and close the agreement in order to resolve this dispute. Default is "false".
      * @returns The method returns a hex value which must then be broadcast using the sendrawtransaction method. The sendrawtransaction method will then return a txid identifying the agreement dispute transaction.
      */
-    agreementDispute(agreementtxid: string, datahash: string): Promise<Transaction>;
+    agreementDispute(agreementtxid: string, disputeinfo?: string, bFinalDispute?: boolean): Promise<Transaction>;
 
     /**
      * The method creates an agreement dispute resolution transaction and returns the raw hex.

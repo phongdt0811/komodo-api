@@ -87,9 +87,10 @@ export interface IAgreementRepository {
     /**
      * 
      * @param agreementtxid Transaction id of the agreement to be disputed.
-     * @param datahash Field for arbitrary SHA256 hash, can be used to store a fingerprint of a digital document or to reference a transaction in the blockchain.
+     * @param disputeinfo [OPTIONAL] Free-form text field describing the dispute. (max 256 characters)
+     * @param bFinalDispute	[OPTIONAL] Can be set to "true" or "false". If set to "true", the arbitrator will be required to unlock the deposit and close the agreement in order to resolve this dispute. Default is "false".
      */
-    agreementDispute(agreementtxid: string, datahash: string): Promise<RPCResponse<Transaction>>;
+    agreementDispute(agreementtxid: string, disputeinfo?: string, bFinalDispute?: boolean): Promise<RPCResponse<Transaction>>;
 
     /**
      * @param disputetxid Transaction id of the dispute to resolve. 

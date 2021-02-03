@@ -160,8 +160,8 @@ export class AgreementService implements IAgreementService {
             }
         }
     }
-    async agreementDispute(agreementtxid: string, datahash: string): Promise<Transaction> {
-        const res = await KomodoRepository.agreementRepository.agreementDispute(agreementtxid, datahash);
+    async agreementDispute(agreementtxid: string, disputeinfo?: string, bFinalDispute?: boolean): Promise<Transaction> {
+        const res = await KomodoRepository.agreementRepository.agreementDispute(agreementtxid, disputeinfo, bFinalDispute);
         if (res.error) {
             throw new Error(res.error.message)
         } else {
