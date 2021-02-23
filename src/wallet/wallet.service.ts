@@ -1,5 +1,6 @@
 import { KomodoRepository } from "../komodo/komodo.repository";
 import { IWalletService } from "./interface/wallet.service.interface";
+import { PublicKeyObject } from "./dto/public-key.dto";
 
 export class WalletService implements IWalletService {
     async signMessage(address: string, message: string): Promise<string> {
@@ -38,5 +39,28 @@ export class WalletService implements IWalletService {
             }
         }
     }
-
+    async dumpprivkey(address: string): Promise<string> {
+        const result = await KomodoRepository.walletRepository.dumpprivkey(address);
+        if(result.error) {
+            throw new Error(result.error.message)
+        } else {
+            if(result.result) {
+                return result.result;
+            } else {
+                throw new Error("Cannot found result");
+            }
+        }
+    }
+    async validateaddress(address: string): Promise<PublicKeyObject> {
+        const result = await KomodoRepository.walletRepository.validateaddress(address);
+        if(result.error) {
+            throw new Error(result.error.message)
+        } else {
+            if(result.result) {
+                return result.result;
+            } else {
+                throw new Error("Cannot found result");
+            }
+        }
+    }
 }
