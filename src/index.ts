@@ -3,12 +3,14 @@ import { IAgreementService } from "./agreement/interface/agreement.service.inter
 import { IControlService } from "./control/interface/control.service.interface";
 import { KomodoNode } from "./komodo/komodo.node";
 import { KomodoService } from "./komodo/komodo.service";
+import { IKYCService } from "./KYC/interface/kyc.service.interface";
 import { IPawnshopService } from "./pawnshop/interface/pawshop.service.interface";
 import { RpcNode } from "./shared/rpc/rpc-node";
 import { ITokenService } from "./token/interface/token.service.interface";
 import { ITransactionService } from "./transaction/interface/transaction.service.interface";
 import { IUtilService } from "./util/interface/util.service.interface";
 import { IWalletService } from "./wallet/interface/wallet.service.interface";
+import { IFaucetService } from "./faucet/interface/faucet.service.interface";
 
 export function setNode(node: RpcNode) {
   KomodoNode.setNode(node);
@@ -23,3 +25,6 @@ export const util: IUtilService = KomodoService.utilService;
 export const wallet: IWalletService = KomodoService.walletService;
 export const agreement: IAgreementService = KomodoService.agreementService;
 export const control: IControlService = KomodoService.controlService;
+export const kyc: IKYCService = KomodoService.kycService;
+export const faucet: IFaucetService = KomodoService.faucetService;
+

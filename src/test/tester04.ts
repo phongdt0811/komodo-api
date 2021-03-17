@@ -10,8 +10,8 @@ const assets = {
 }
 
 tester.setNode({
-    rpcName: "user2111365722",
-    rpcPassword: "passa1d83fda7e0fc74060ef31fbcd8a65df9fb2cb165339927a5b902db04c6c8d163a",
+    rpcName: "user1149789007",
+    rpcPassword: "passcfa6f2339515b45ecd0b1a520d5cd9bf2a26a75401f3a34af56e1800d52b8f3350",
     nodeIp: "http://127.0.0.1",
     nodePort: "17603",
     chainName: "VLB1"
@@ -43,5 +43,5 @@ function getPublickey(address: string) {
     const pubkeyObj = await getPublickey(tokenAddress.myaddress);
     if(!pubkeyObj) throw 'Error can not get address';
     console.log(pubkeyObj);
-    console.log(`PUBLIC key: ${pubkeyObj.pubkey}`)
+    console.log(`PUBLIC key: ${pubkeyObj.pubkey}`);
 })();

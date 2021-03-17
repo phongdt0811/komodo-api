@@ -4,6 +4,8 @@ import { AgreementService } from "../agreement/agreement.service";
 import { IAgreementService } from "../agreement/interface/agreement.service.interface";
 import { ControlService } from "../control/control.service";
 import { IControlService } from "../control/interface/control.service.interface";
+import { IKYCService } from "../KYC/interface/kyc.service.interface";
+import { KYCService } from "../KYC/kyc.service";
 import { IPawnshopService } from "../pawnshop/interface/pawshop.service.interface";
 import { PawnshopService } from "../pawnshop/pawnshop.service";
 import { ITokenService } from "../token/interface/token.service.interface";
@@ -14,6 +16,8 @@ import { IUtilService } from "../util/interface/util.service.interface";
 import { UntilService } from "../util/util.service";
 import { IWalletService } from "../wallet/interface/wallet.service.interface";
 import { WalletService } from "../wallet/wallet.service";
+import { IFaucetService } from "../faucet/interface/faucet.service.interface";
+import { FaucetService } from "../faucet/faucet.service";
 
 export class KomodoService {
     public static readonly transactionService: ITransactionService = new TransactionService();
@@ -24,4 +28,6 @@ export class KomodoService {
     public static readonly walletService: IWalletService = new WalletService();
     public static readonly agreementService: IAgreementService = new AgreementService();
     public static readonly controlService: IControlService = new ControlService();
+    public static readonly kycService: IKYCService = new KYCService();
+    public static readonly faucetService: IFaucetService = new FaucetService();
 }

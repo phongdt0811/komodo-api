@@ -14,6 +14,11 @@ import { IUtilRepository } from "../util/interface/util.repository";
 import { UtilRepository } from "../util/util.repository";
 import { IWalletRepository } from "../wallet/interface/wallet.repository.interface";
 import { WalletRepository } from "../wallet/wallet.repository";
+import { IKYCRepository } from "../KYC/interface/kyc.repository.interface";
+import { KYCRepository } from "../KYC/kyc.repository";
+
+import { IFaucetRepository } from "../faucet/interface/faucet.repository.interface";
+import { FaucetRepository } from "../faucet/faucet.repository";
 
 export class KomodoRepository {
 
@@ -25,4 +30,7 @@ export class KomodoRepository {
     public static readonly walletRepository: IWalletRepository = new WalletRepository();
     public static readonly agreementRepository: IAgreementRepository = new AgreementRepository();
     public static readonly controlRepository: IControlRepository = new ControlRepository();
+    public static readonly kycRepositoty: IKYCRepository = new KYCRepository();
+    public static readonly faucetRepositoty: IFaucetRepository = new FaucetRepository();
+
 }
